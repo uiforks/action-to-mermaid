@@ -1,8 +1,8 @@
 {
   "name": "action-to-mermaid",
-  "version": "1.0.0",
+  "version": "0.0.3",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "ncc build index.js"
   },
