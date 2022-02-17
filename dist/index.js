@@ -16030,6 +16030,8 @@ async function run() {
 async function getAction(nwo, octokit) {
     const owner = nwo.split('/')[0];
     const repo = nwo.split('/')[1];
+    core.debug(`Getting metadata for action: ${nwo}`);
+    
     try {
         let { data: contents } = await octokit.rest.repos.getContent({
             owner,
@@ -16067,6 +16069,7 @@ function isValidAction(nwo) {
 }
 
 function convertActionToMermaid(contents) {
+    core.debug(`Converting content to mermaid: ${contents}`);
     const json = yaml.parse(contents);
     if (Object.keys(json).length === 0) {
         throw new Error('Action is empty');
@@ -16079,6 +16082,7 @@ function convertActionToMermaid(contents) {
     mermaid += handleClassDefs(json);
     mermaid += handleClicks(json);
     mermaid += '```';
+    core.debug(`Converted mermaid: ${mermaid}`);
     return mermaid;
 }
 
@@ -16130,6 +16134,7 @@ function handleClassDefs(json) {
 function handleClicks(json) {
     return '';
 }
+
 })();
 
 module.exports = __webpack_exports__;
