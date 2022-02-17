@@ -1,8 +1,9 @@
-# Action to Mermaid
+# Action to Mermaid 
+> ▶️ to 🧜‍♀️
 
 ## About
 
-This is a GitHub action that generates a [Mermaid diagram](https://mermaid-js.github.io/mermaid/#/) out of an action's metadata file.
+Now that [GitHub renders Mermaid diagrams](https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/), here is a GitHub action that generates a [Mermaid diagram](https://mermaid-js.github.io/mermaid/#/) out of an action's metadata file.
 
 ## Overview
 
