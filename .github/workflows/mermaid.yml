@@ -1,0 +1,35 @@
+name: Mermaid
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - action.yml
+  workflow_dispatch:
+
+jobs:
+  mermaid:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - id: mermaid
+        uses: ./
+
+      - name: Create mermaid section of README
+        env:
+          MERMAID: ${{ steps.mermaid.outputs.mermaid }}
+        run: |
+          sed -i -z "s/<!-- START MERMAID -->.*/<!-- START MERMAID -->/g" README.md
+          echo -e "\n""$MERMAID" >> README.md
+
+      - name: Commit to action.mermaid.md
+        uses: swinton/commit@v2.x
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: |
+            README.md
+          commit-message: Updating README with mermaid diagram
+          ref: refs/heads/main
