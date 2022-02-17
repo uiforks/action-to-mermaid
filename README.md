@@ -1,4 +1,10 @@
-# action-to-mermaidjs-image
+# Action to Mermaid
+
+## About
+
+This is a GitHub action that generates a [Mermaid diagram](https://mermaid-js.github.io/mermaid/#/) out of an action's metadata file.
+
+## Overview
 
 <!-- START MERMAID -->
 ```mermaid
@@ -11,3 +17,46 @@ classDef optional fill:#d9b430,stroke:#333,stroke-width:3px
 classDef action fill:blue,stroke:#333,stroke-width:3px,color:#ffffff
 classDef output fill:#fff,stroke:#333,stroke-width:3px,color:#333
 ```
+
+## Example usage
+
+```yml
+name: Mermaid
+
+on:
+  # Upon push to action.yml in the main branch
+  push:  
+    branches: [ main ]
+    paths:
+      - action.yml
+  # Or upon manual trigger
+  workflow_dispatch:
+
+jobs:
+  mermaid:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Get Mermaid diagram for the action repository this workflow runs in
+      # Use `nwo` option to change the action repository
+      - name: Get Mermaid diagram
+        id: mermaid
+        uses: imjohnbo/action-to-mermaid@v1
+
+      # Do something with Mermaid diagram, e.g. update README, output to separate file, etc.
+      - name: Echo Mermaid diagram
+        env:
+          MERMAID: ${{ steps.mermaid.outputs.mermaid }}
+        run: |-
+          echo "$MERMAID"
+```
+
+## License
+
+[MIT](LICENSE)
+
+## Contributing
+
+Pull requests are welcome!
